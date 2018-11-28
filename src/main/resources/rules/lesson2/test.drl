@@ -1,0 +1,47 @@
+package demo;
+
+// 依赖库
+import demo.Account;
+import demo.CashFlow;
+import demo.AccountPeriod;
+
+import util.OutputDisplay;
+
+// 全局变量
+//  也可以在 session 中的 setGlobal 设置
+global OutputDisplay showResults;
+
+// JAVA 代码
+// OutputDisplay outputDisplay = new OutputDisplay();
+// sessionStateful.setGlobal("showResults", outputDisplay);
+
+rule "Credit Rule 1"
+	when
+		CashFlow(type == CashFlow.CREDIT)
+		Account()
+	then
+		showResults.showText("Binding TEST OK!");
+end
+
+rule "Credit rule 2"
+    when
+        $cash :CashFlow($aDate : mvtDate, $accno: accountno, type == CashFlow.CREDIT)
+        $acc : Account(accountno == $accno)
+        $period : AccountPeriod(  startDate <= $aDate && endDate >= $aDate)
+    then
+        $acc.setBalance($acc.getBalance()+$cash.getAmount());
+        showResults.showText("Account no "+$acc.getAccountno()+ " has now a balance of "+$acc.getBalance());
+end
+
+rule "Debit rule"
+
+    when
+        $cash :CashFlow($aDate : mvtDate, $no : accountno ,type == CashFlow.DEBIT )
+        $acc : Account(accountno ==$no  )
+        $period : AccountPeriod(startDate <= $aDate && endDate >= $aDate)
+    then
+        $acc.setBalance($acc.getBalance() - $cash.getAmount());
+        showResults.showText("Account no "+ $acc.getAccountno()
+                  + " has now a balance of "+ $acc.getBalance());
+end
+

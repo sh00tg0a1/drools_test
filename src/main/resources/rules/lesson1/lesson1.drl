@@ -1,0 +1,23 @@
+package demo;
+
+// 依赖库
+import demo.Account;
+import util.OutputDisplay;
+
+// 全局变量
+//  也可以在 session 中的 setGlobal 设置
+global OutputDisplay showResults;
+
+// JAVA 代码
+// OutputDisplay outputDisplay = new OutputDisplay();
+// sessionStateful.setGlobal("showResults", outputDisplay);
+
+rule "test rule"
+	when
+		Account()
+	then
+		showResults.showText("Account exits!");
+		// 可以用 Java 的方法
+        // System.out.println("Account exits!");
+end
+

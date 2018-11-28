@@ -1,0 +1,32 @@
+package demo;
+
+// 依赖库
+import demo.Account;
+import demo.CashFlow;
+import demo.AccountPeriod;
+
+import util.OutputDisplay;
+
+// 全局变量
+//  也可以在 session 中的 setGlobal 设置
+global OutputDisplay showResults;
+
+// JAVA 代码
+// OutputDisplay outputDisplay = new OutputDisplay();
+// sessionStateful.setGlobal("showResults", outputDisplay);
+
+rule "Rule with some actions"
+	when
+		CashFlow()
+	then
+		showResults.showText("The CashFlow exists, inserting an account Period.");
+		AccountPeriod newPeriod = new AccountPeriod();
+		insert(newPeriod);
+end
+
+rule "Rule with Account Period"
+	when
+		AccountPeriod()
+	then
+		showResults.showText("The AccountPeriod exists.");
+end

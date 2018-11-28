@@ -1,0 +1,74 @@
+package demo;
+
+// 依赖库
+import demo.Account;
+import demo.CashFlow;
+import demo.AccountPeriod;
+
+import util.OutputDisplay;
+
+// 全局变量
+//  也可以在 session 中的 setGlobal 设置
+global OutputDisplay showResults;
+global CustomerService serviceCustomer;
+
+
+// JAVA 代码
+// OutputDisplay outputDisplay = new OutputDisplay();
+// sessionStateful.setGlobal("showResults", outputDisplay);
+
+rule "Rule with a list"
+	when
+		CashFlow(type in (CashFlow.CREDIT, CashFlow.DEBIT))
+	then
+		showResults.showText("Here is a list!");
+end
+
+rule "Nested object"
+	when
+		PrivateAccount(owner != null, owner.name == "AAA")
+	then
+		showResults.showText("Nested object accessed!");
+
+end
+
+rule "Rule with and/or"
+	when
+		($c1: Customer(country == "GB") and PrivateAccount(owner == $c1))
+		or
+		($c1: Customer(country == "US") and PrivateAccount(owner == $c1))
+	then
+		showResults.showText("Rule with and/or fired!");
+end
+
+rule "Rule with NOT"
+	when
+		not Customer()
+	then
+		showResults.showText("Rule with NOT fired!");
+end
+
+rule "Rule with EXISTS"
+	when
+		// 用例中使用的是 PrivateAccount 实例，继承的是 Account 类，检测也能成功
+		exists Account()
+	then
+		showResults.showText("Rule with EXISTS fired!");
+end
+
+rule "Rule with FORALL"
+	when
+		forall ( Account($no: accountno)
+			CashFlow(accountno == $no)
+		)
+	then
+		showResults.showText("All cashflows are related to an Account ");
+end
+
+rule "Rule with LIST"
+	when
+		$c: Customer()
+		$cc: Customer(name == $c.name, surname == $c.surname, country == $c.country) from serviceCustomer.getCustomerList();
+	then
+		showResults.showText("Customer in the list!");
+end
