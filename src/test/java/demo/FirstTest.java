@@ -4,7 +4,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.kie.api.event.rule.AgendaEventListener;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 import org.kie.api.runtime.StatelessKieSession;
@@ -43,14 +42,14 @@ public class FirstTest {
     @Test
     public void testFirstOne() {
         sessionStateful = KnowledegeSessionHelper
-                .getStatefulKnowledgeSesion(kieContainer, "ksession-rules");
+                .getStatefulKnowledgeSession(kieContainer, "ksession-rules");
         sessionStateful.fireAllRules();
     }
 
     @Test
     public void TestLesson1() {
         sessionStateful = KnowledegeSessionHelper
-                .getStatefulKnowledgeSesion(kieContainer, "ksession-rules");
+                .getStatefulKnowledgeSession(kieContainer, "ksession-rules");
 
         // 这两行代码不设置也可以，规则文件中貌似会自动设置
         // OutputDisplay outputDisplay = new OutputDisplay();
@@ -63,7 +62,7 @@ public class FirstTest {
     @Test
     public void testFirstRuleWithGlobalAndCallback() {
         sessionStateful = KnowledegeSessionHelper
-                .getStatefulKnowledgeSesion(kieContainer, "ksession-rules");
+                .getStatefulKnowledgeSession(kieContainer, "ksession-rules");
         sessionStateful.addEventListener(new MyRuntimeEventListner());
 
         // 这两行代码不设置也可以，规则文件中貌似会自动设置
@@ -86,7 +85,7 @@ public class FirstTest {
     @Test
     public void testFireTwice() {
         sessionStateful = KnowledegeSessionHelper
-                .getStatefulKnowledgeSesion(kieContainer, "ksession-rules");
+                .getStatefulKnowledgeSession(kieContainer, "ksession-rules");
         sessionStateful.addEventListener(new MyRuntimeEventListner());
 
         // 这两行代码不设置也可以，规则文件中貌似会自动设置
@@ -111,7 +110,7 @@ public class FirstTest {
     @Test
     public void testFireTwiceWithUpdate() {
         sessionStateful = KnowledegeSessionHelper
-                .getStatefulKnowledgeSesion(kieContainer, "ksession-rules");
+                .getStatefulKnowledgeSession(kieContainer, "ksession-rules");
 
         sessionStateful.addEventListener(new MyRuntimeEventListner());
 
@@ -138,7 +137,7 @@ public class FirstTest {
     @Test
     public void testWithInsertActions() {
         sessionStateful = KnowledegeSessionHelper
-                .getStatefulKnowledgeSesion(kieContainer, "ksession-rules");
+                .getStatefulKnowledgeSession(kieContainer, "ksession-rules");
         sessionStateful.addEventListener(new MyRuntimeEventListner());
 
         // 这两行代码不设置也可以，规则文件中貌似会自动设置
@@ -154,7 +153,7 @@ public class FirstTest {
     @Test
     public void testWithListeners() {
         sessionStateful = KnowledegeSessionHelper
-                .getStatefulKnowledgeSesion(kieContainer, "ksession-rules");
+                .getStatefulKnowledgeSession(kieContainer, "ksession-rules");
         sessionStateful.addEventListener(new MyRuntimeEventListner());
         sessionStateful.addEventListener(new MyAgendaEventListner());
 

@@ -1,7 +1,6 @@
 package demo;
 
 import org.junit.*;
-import org.kie.api.event.rule.AgendaEventListener;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 import org.kie.api.runtime.StatelessKieSession;
@@ -37,10 +36,11 @@ public class ThirdTest {
     @Test
     public void testListCondition() {
         sessionStateful = KnowledegeSessionHelper
-                .getStatefulKnowledgeSesion(kieContainer, "ksession-rules3");
+                .getStatefulKnowledgeSession(kieContainer, "ksession-rules4");
 
 //        sessionStateful.addEventListener(new MyRuntimeEventListner());
 //        sessionStateful.addEventListener(new MyAgendaEventListner());
+        sessionStateful.addEventListener(new MyRuntimeEventListner());
 
         // 这两行代码不设置也可以，规则文件中貌似会自动设置
         OutputDisplay outputDisplay = new OutputDisplay();
@@ -67,7 +67,7 @@ public class ThirdTest {
     @Test
     public void testNestedObject() {
         sessionStateful = KnowledegeSessionHelper
-                .getStatefulKnowledgeSesion(kieContainer, "ksession-rules3");
+                .getStatefulKnowledgeSession(kieContainer, "ksession-rules3");
 
         sessionStateful.addEventListener(new MyRuntimeEventListner());
         sessionStateful.addEventListener(new MyAgendaEventListner());
@@ -88,7 +88,7 @@ public class ThirdTest {
     @Test
     public void testAndOrRule() {
         sessionStateful = KnowledegeSessionHelper
-                .getStatefulKnowledgeSesion(kieContainer, "ksession-rules3");
+                .getStatefulKnowledgeSession(kieContainer, "ksession-rules3");
 
         sessionStateful.addEventListener(new MyRuntimeEventListner());
         sessionStateful.addEventListener(new MyAgendaEventListner());
@@ -122,7 +122,7 @@ public class ThirdTest {
     @Test
     public void testWithNot() {
         sessionStateful = KnowledegeSessionHelper
-                .getStatefulKnowledgeSesion(kieContainer, "ksession-rules3");
+                .getStatefulKnowledgeSession(kieContainer, "ksession-rules3");
 
         sessionStateful.addEventListener(new MyRuntimeEventListner());
         sessionStateful.addEventListener(new MyAgendaEventListner());
@@ -137,7 +137,7 @@ public class ThirdTest {
     @Test
     public void testWithExits() {
         sessionStateful = KnowledegeSessionHelper
-                .getStatefulKnowledgeSesion(kieContainer, "ksession-rules3");
+                .getStatefulKnowledgeSession(kieContainer, "ksession-rules3");
 
         sessionStateful.addEventListener(new MyRuntimeEventListner());
         sessionStateful.addEventListener(new MyAgendaEventListner());
@@ -156,7 +156,7 @@ public class ThirdTest {
     @Test
     public void testWithForAll() {
         sessionStateful = KnowledegeSessionHelper
-                .getStatefulKnowledgeSesion(kieContainer, "ksession-rules3");
+                .getStatefulKnowledgeSession(kieContainer, "ksession-rules3");
 
         sessionStateful.addEventListener(new MyRuntimeEventListner());
         sessionStateful.addEventListener(new MyAgendaEventListner());
@@ -183,7 +183,7 @@ public class ThirdTest {
     @Test
     public void testWithList() {
         sessionStateful = KnowledegeSessionHelper
-                .getStatefulKnowledgeSesion(kieContainer, "ksession-rules3");
+                .getStatefulKnowledgeSession(kieContainer, "ksession-rules3");
 
         sessionStateful.addEventListener(new MyRuntimeEventListner());
         sessionStateful.addEventListener(new MyAgendaEventListner());
@@ -198,11 +198,11 @@ public class ThirdTest {
     }
 
     @Test
-    public void testCashFlowMovement() {
+    public void test2CashLines() {
         try {
 
             sessionStateful = KnowledegeSessionHelper
-                    .getStatefulKnowledgeSesion(kieContainer, "ksession-rules2");
+                    .getStatefulKnowledgeSession(kieContainer, "ksession-rules3");
 
             //        sessionStateful.addEventListener(new MyRuntimeEventListner());
             //        sessionStateful.addEventListener(new MyAgendaEventListner());
@@ -212,34 +212,18 @@ public class ThirdTest {
             sessionStateful.setGlobal("showResults", outputDisplay);
 
             // 规则测试
-            Account a = new Account();
-            a.setAccountno(1);
-            a.setBalance(0);
-            sessionStateful.insert(a);
-            CashFlow cash1 = new CashFlow();
-            cash1.setAccountno(1);
-            cash1.setAmount(1000);
-            cash1.setMvtDate(DateHelper.getDate("2018-01-15"));
-            cash1.setType(CashFlow.CREDIT);
+            Account a = new Account(1, 0);
+            FactHandle fh = sessionStateful.insert(a);
+            CashFlow cash1 = new CashFlow(1, CashFlow.CREDIT, DateHelper.getDate("2018-01-15"), 1000);
             sessionStateful.insert(cash1);
 
-            CashFlow cash2 = new CashFlow();
-            cash2.setAccountno(1);
-            cash2.setAmount(1000);
-            cash2.setMvtDate(DateHelper.getDate("2018-01-15"));
-            cash2.setType(CashFlow.CREDIT);
+            CashFlow cash2 = new CashFlow(1, CashFlow.CREDIT, DateHelper.getDate("2018-02-10"), 1000);
             sessionStateful.insert(cash2);
 
-            CashFlow cash3 = new CashFlow();
-            cash3.setAccountno(1);
-            cash3.setAmount(500);
-            cash3.setMvtDate(DateHelper.getDate("2018-02-15"));
-            cash3.setType(CashFlow.DEBIT);
+            CashFlow cash3 = new CashFlow(1, CashFlow.DEBIT, DateHelper.getDate("2018-03-15"), 500);
             sessionStateful.insert(cash3);
 
-            AccountPeriod period = new AccountPeriod();
-            period.setStartDate(DateHelper.getDate("2018-01-01"));
-            period.setEndDate(DateHelper.getDate("2018-03-01"));
+            AccountPeriod period = new AccountPeriod(DateHelper.getDate("2018-01-01"), DateHelper.getDate("2018-03-31"));
 
             sessionStateful.insert(period);
             sessionStateful.fireAllRules();

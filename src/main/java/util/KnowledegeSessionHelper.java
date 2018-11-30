@@ -20,7 +20,7 @@ public class KnowledegeSessionHelper {
         return kieSession;
     }
 
-    public static KieSession getStatefulKnowledgeSesion(KieContainer kieContainer, String sessionName) {
+    public static KieSession getStatefulKnowledgeSession(KieContainer kieContainer, String sessionName) {
         KieSession kieSession = kieContainer.newKieSession(sessionName);
         return kieSession;
     }

@@ -7,6 +7,15 @@ public class Account {
     private long accountno;
     private double balance;
 
+    public Account() {
+        super();
+    }
+
+    public Account(long accountno, double balance) {
+        this.accountno = accountno;
+        this.balance = balance;
+    }
+
     public long getAccountno() {
         return this.accountno;
     }

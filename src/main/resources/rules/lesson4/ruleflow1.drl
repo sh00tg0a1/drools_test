@@ -1,0 +1,60 @@
+package demo;
+
+// 依赖库
+import demo.Account;
+import demo.CashFlow;
+import demo.AccountPeriod;
+import java.util.ArrayList;
+import java.lang.Number;
+
+import util.OutputDisplay;
+
+// 全局变量
+//  也可以在 session 中的 setGlobal 设置
+global OutputDisplay showResults;
+global CustomerService serviceCustomer;
+
+
+// JAVA 代码
+// OutputDisplay outputDisplay = new OutputDisplay();
+// sessionStateful.setGlobal("showResults", outputDisplay);
+
+rule "Account Group 1"
+	ruleflow-group "Group1"
+	when
+		Account( )
+	then
+		showResults.showText("Account in Group 1");
+end
+
+rule "Account Group 2"
+	ruleflow-group "Group2"
+	when
+		Account( )
+	then
+		showResults.showText("Account in Group 2");
+end
+
+
+rule "start process"
+	when
+	then
+		kcontext.getKieRuntime().startProcess("RF3");
+end
+
+rule "Account group1 4a"
+	ruleflow-group "Group1"
+	when
+		Account(balance > 1000  )
+	then
+		showResults.showText("Account in Group1 > 1000 ");
+
+end
+rule "Account group2 4a"
+	ruleflow-group "Group2"
+	when
+		Account(balance < 1000)
+	then
+		showResults.showText("Account in Group2 < 1000");
+
+end

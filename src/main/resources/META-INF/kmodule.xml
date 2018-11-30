@@ -9,4 +9,7 @@
     <kbase name="rules3" packages="lesson3">
         <ksession name="ksession-rules3"/>
     </kbase>
+    <kbase name="rules4" packages="lesson4">
+        <ksession name="ksession-rules4"/>
+    </kbase>
 </kmodule>

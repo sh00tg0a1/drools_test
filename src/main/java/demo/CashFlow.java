@@ -2,6 +2,7 @@ package demo;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.lang.Number;
 
 /**
  * Created by cx on 2018/11/19.
@@ -14,6 +15,21 @@ public class CashFlow {
     private double amount;
     private int type;
     private long accountno;
+
+    public CashFlow() {
+        super();
+    }
+
+    public CashFlow(long accountno, int type, Date date, double amount) {
+        super();
+
+        this.accountno = accountno;
+        this.type = type;
+        this.mvtDate = date;
+        this.amount = amount;
+
+        assert type == CREDIT || type == DEBIT;
+    }
 
     public Date getMvtDate() {
         return this.mvtDate;
@@ -52,15 +68,16 @@ public class CashFlow {
         // TODO Auto-generated method stub
         StringBuffer buff = new StringBuffer();
         buff.append("-----CashFlow-----)\n");
-        buff.append("Account no=" + this.accountno + "\n");
+        buff.append("Account no = " + this.accountno + "\n");
+        buff.append("Type = " + this.type + "\n");
         if (this.mvtDate != null) {
-            buff.append("Mouvement Date= "
+            buff.append("Movement Date = "
                     + DateFormat.getDateInstance().format(this.mvtDate)
                     + "\n");
         } else {
-            buff.append("No Mouvement date was set\n");
+            buff.append("No Movement date was set\n");
         }
-        buff.append("Mouvement Amount=" + this.amount + "\n");
+        buff.append("Movement Amount = " + this.amount + "\n");
         buff.append("-----CashFlow end--)");
         return buff.toString();
     }

@@ -76,5 +76,17 @@
     <orderEntry type="library" name="Maven: com.google.inject:guice:no_aop:4.0" level="project" />
     <orderEntry type="library" name="Maven: javax.inject:javax.inject:1" level="project" />
     <orderEntry type="library" name="Maven: aopalliance:aopalliance:1.0" level="project" />
+    <orderEntry type="library" name="Maven: org.jbpm:jbpm-bpmn2:7.14.0.Final" level="project" />
+    <orderEntry type="library" name="Maven: org.jbpm:jbpm-flow-builder:7.14.0.Final" level="project" />
+    <orderEntry type="library" name="Maven: org.jbpm:jbpm-flow:7.14.0.Final" level="project" />
+    <orderEntry type="library" name="Maven: org.kie:kie-dmn-api:7.14.0.Final" level="project" />
+    <orderEntry type="library" name="Maven: org.kie:kie-dmn-feel:7.14.0.Final" level="project" />
+    <orderEntry type="library" name="Maven: org.kie:kie-dmn-model:7.14.0.Final" level="project" />
+    <orderEntry type="library" name="Maven: org.antlr:antlr4-runtime:4.5.3" level="project" />
+    <orderEntry type="library" name="Maven: org.drools:drlx-parser:7.14.0.Final" level="project" />
+    <orderEntry type="library" name="Maven: org.kie:kie-dmn-core:7.14.0.Final" level="project" />
+    <orderEntry type="library" name="Maven: org.kie:kie-dmn-backend:7.14.0.Final" level="project" />
+    <orderEntry type="library" name="Maven: org.drools:drools-canonical-model:7.14.0.Final" level="project" />
+    <orderEntry type="library" name="Maven: org.drools:drools-model-compiler:7.14.0.Final" level="project" />
   </component>
 </module>

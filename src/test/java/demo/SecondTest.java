@@ -1,7 +1,6 @@
 package demo;
 
 import org.junit.*;
-import org.kie.api.event.rule.AgendaEventListener;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 import org.kie.api.runtime.StatelessKieSession;
@@ -37,7 +36,7 @@ public class SecondTest {
     @Test
     public void testBinding() {
         sessionStateful = KnowledegeSessionHelper
-                .getStatefulKnowledgeSesion(kieContainer, "ksession-rules2");
+                .getStatefulKnowledgeSession(kieContainer, "ksession-rules2");
 
 //        sessionStateful.addEventListener(new MyRuntimeEventListner());
 //        sessionStateful.addEventListener(new MyAgendaEventListner());
@@ -61,7 +60,7 @@ public class SecondTest {
     @Test
     public void testUpdateObject() {
         sessionStateful = KnowledegeSessionHelper
-                .getStatefulKnowledgeSesion(kieContainer, "ksession-rules2");
+                .getStatefulKnowledgeSession(kieContainer, "ksession-rules2");
 
 //        sessionStateful.addEventListener(new MyRuntimeEventListner());
 //        sessionStateful.addEventListener(new MyAgendaEventListner());
@@ -94,7 +93,7 @@ public class SecondTest {
         try {
 
             sessionStateful = KnowledegeSessionHelper
-                    .getStatefulKnowledgeSesion(kieContainer, "ksession-rules2");
+                    .getStatefulKnowledgeSession(kieContainer, "ksession-rules2");
 
             //        sessionStateful.addEventListener(new MyRuntimeEventListner());
             //        sessionStateful.addEventListener(new MyAgendaEventListner());

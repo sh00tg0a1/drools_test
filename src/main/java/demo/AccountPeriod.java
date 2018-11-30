@@ -29,6 +29,13 @@ public class AccountPeriod {
         super();
     }
 
+    public AccountPeriod(Date startDate, Date endDate) {
+        super();
+
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
 
     @Override
     public String toString() {
